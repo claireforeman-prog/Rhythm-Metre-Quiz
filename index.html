@@ -1,0 +1,410 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GCSE Music – R – Rhythm &amp; Metre Quiz</title>
+<style>
+:root{--ink:#132437;--muted:#5c6c7e;--line:#d6dde6;--paper:#f5f7fa;--card:#fff;--c:#ef6c00}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--paper);color:var(--ink);line-height:1.45}
+header{background:#12263a;color:white;padding:26px 20px}
+.wrap{max-width:960px;margin:auto}
+header h1{margin:0;font-size:clamp(26px,4vw,42px)}
+header p{margin:6px 0 0;color:#dce6ef}
+main{max-width:960px;margin:auto;padding:22px 20px 46px}
+.notice{background:#fff7dc;border:1px solid #e2cf86;border-radius:11px;padding:12px 14px;margin-bottom:16px}
+.panel{background:white;border:1px solid var(--line);border-top:7px solid var(--c);border-radius:14px;padding:18px;margin:16px 0;box-shadow:0 2px 10px rgba(12,28,45,.05)}
+.panel-head{display:flex;justify-content:space-between;gap:16px;align-items:flex-start}
+.panel h2,.panel h3{margin:0 0 6px}
+.scorebox{background:#edf1f5;border-radius:999px;padding:9px 13px;font-weight:800;white-space:nowrap}
+.mode-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:15px 0}
+button{font:inherit}
+.mode,.reveal-one,.listen-actions button,.check-btn,.next-btn{border:1px solid var(--line);background:#fff;border-radius:9px;padding:10px 13px;cursor:pointer}
+.mode{text-align:left;min-height:75px;font-weight:800}
+.mode span{display:block;color:var(--muted);font-size:12px;font-weight:400;margin-top:3px}
+.mode.primary{background:var(--c);color:#fff;border-color:var(--c)} .mode.primary span{color:rgba(255,255,255,.85)}
+.mode:disabled{opacity:.45;cursor:not-allowed}
+.quiz-area{border-top:1px solid var(--line);padding-top:16px}
+.intro-card{background:#f6f8fa;border-radius:10px;padding:14px}
+.intro-card ul{margin:7px 0 0;padding-left:22px}
+.progress{font-size:13px;color:var(--muted);font-weight:800}
+.kind{display:inline-block;background:#eef2f6;border-radius:999px;padding:4px 9px;font-size:12px;font-weight:800;margin:7px 0}
+.qtext{font-size:20px;font-weight:800;margin:7px 0 15px}
+.symbol-stage{min-height:130px;display:flex;align-items:center;justify-content:center;background:#fbfcfd;border:1px solid var(--line);border-radius:12px;margin:8px 0 16px;padding:16px}
+.answer-input{width:100%;padding:12px;border:1px solid #b9c5d0;border-radius:9px;font-size:17px}
+.action-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.check-btn,.next-btn{background:var(--c);color:#fff;border-color:var(--c);font-weight:800}
+.feedback{margin-top:12px;padding:11px 13px;border-radius:9px;font-weight:700}
+.good{background:#edf8ef;color:#205e29} .bad{background:#fff0f0;color:#8c1f1f}
+.mcq{display:grid;gap:8px}
+.mcq button{text-align:left;padding:11px 13px;background:#fff;border:1px solid var(--line);border-radius:9px;cursor:pointer}
+.mcq button.correct{background:#edf8ef;border-color:#2e7d32} .mcq button.wrong{background:#fff0f0;border-color:#c62828} .mcq button.selected{background:#fff3e0;border-color:var(--c);font-weight:800}
+.bigmark,.formmark,.roman{font-size:42px;font-weight:700;letter-spacing:.05em}
+.formmark{font-size:36px;word-spacing:12px} .roman{font-family:Georgia,serif;font-size:44px}
+.sym-svg{width:210px;height:75px;stroke:currentColor;stroke-width:4;fill:none}
+.note-svg{width:95px;height:125px}
+.timesig{display:inline-flex;flex-direction:column;font-family:Georgia,serif;font-size:44px;line-height:.68;font-weight:800}
+.triplet-vis{position:relative;font-size:38px;word-spacing:9px;padding-top:18px} .triplet-vis b{position:absolute;top:0;left:50%;transform:translateX(-50%);font-size:18px}
+.sym-caption{font-size:14px;color:var(--muted);text-align:center;margin-top:5px}
+.artic-vis{position:relative;display:inline-flex;flex-direction:column;align-items:center;font-size:46px;line-height:.65} .artic-vis .dot{font-size:35px} .artic-vis .accent,.artic-vis .tenuto{font-size:38px}
+.texture-vis{display:flex;flex-direction:column;gap:5px;font-size:25px;min-width:280px} .texture-vis .indent1{padding-left:35px} .texture-vis .indent2{padding-left:70px}
+.result h4{font-size:25px;margin:0 0 5px}
+.breakdown{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0} .breakdown span{background:#eef2f6;border-radius:999px;padding:7px 10px;font-size:13px;font-weight:700}
+.cue{background:#f5f7f9;border-radius:8px;padding:10px 12px;color:#415163}
+.listen-q{border-top:1px solid var(--line);padding:13px 0}
+.listen-q label{display:block;font-weight:700;margin-bottom:7px}
+.listen-q input{width:100%;padding:11px;border:1px solid #b9c5d0;border-radius:8px;font-size:16px}
+.reveal-one{margin-top:8px;font-size:14px}
+.model-answer{margin-top:8px;padding:10px 12px;border-left:4px solid var(--c);background:#eef6ff;border-radius:6px}
+.listen-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:13px}
+.student-note{font-size:13px;color:var(--muted);margin-top:11px}
+footer{max-width:960px;margin:0 auto 30px;padding:0 20px;color:var(--muted);font-size:13px}
+@media(max-width:760px){.mode-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.panel-head{display:block}.scorebox{display:inline-block;margin-top:8px}}
+@media(max-width:480px){.mode-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+<h1>R – Rhythm &amp; Metre</h1>
+<p>GCSE Music • DR T SMITH • self-marking challenge quiz</p>
+</div></header>
+<main>
+<div class="notice"><strong>Student version:</strong> this file contains only the R – Rhythm &amp; Metre quiz. Future elements are not included.</div>
+
+<div class="panel">
+  <div class="panel-head">
+    <div><h2>Vocabulary challenge</h2><p>20 unique Rhythm & Metre concepts. No term is tested twice in the main challenge. Note-value questions mix naming symbols with stating how many beats they are worth, and a rest-value question is included.</p></div>
+    <div class="scorebox"><span id="score">0</span>/<span id="attempted">0</span></div>
+  </div>
+  <div class="mode-grid">
+    <button type="button" id="challenge" class="mode primary">20-question Rhythm & Metre challenge<span>20 different concepts • no repeated term</span></button>
+    <button type="button" id="reverse" class="mode">Full reverse recall<span>definition → write the term</span></button>
+    <button type="button" id="symbols" class="mode" disabled>Symbols & notation<span>not used: not in this booklet section</span></button>
+    <button type="button" id="retry" class="mode" disabled>Retry mistakes<span>only missed questions</span></button>
+  </div>
+  <div id="quizArea" class="quiz-area">
+    <div class="intro-card">
+      <strong>Marking is deliberately accommodating.</strong>
+      <ul>
+        <li>If the correct musical term — or a clearly distinctive key word from it — appears in your answer, it can be accepted.</li>
+        <li>Hyphens, punctuation and capitalisation do not matter.</li>
+        <li>Small spelling mistakes are allowed.</li><li>Your answers are marked only when you finish the quiz.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="panel">
+  <h3>Listening challenge</h3>
+  <p><strong>Recommended extract(s):</strong> Stevie Wonder – Superstition (opening groove)</p>
+  <p class="cue"><strong>Teacher cue:</strong> Listen for the syncopated clavinet riff, steady beat and backbeat feel.</p>
+
+  <div class="listen-q">
+    <label>1. Where is the steady pulse?</label>
+    <input type="text" autocomplete="off">
+    <button type="button" class="reveal-one">Reveal model answer</button>
+    <div class="model-answer" hidden>A steady underlying beat is maintained throughout the groove.</div>
+  </div>
+  <div class="listen-q">
+    <label>2. Which part sounds syncopated?</label>
+    <input type="text" autocomplete="off">
+    <button type="button" class="reveal-one">Reveal model answer</button>
+    <div class="model-answer" hidden>The clavinet riff.</div>
+  </div>
+  <div class="listen-q">
+    <label>3. What is the repeated rhythmic idea called in this extract?</label>
+    <input type="text" autocomplete="off">
+    <button type="button" class="reveal-one">Reveal model answer</button>
+    <div class="model-answer" hidden>Riff.</div>
+  </div>
+  <div class="listen-q">
+    <label>4. Which beats receive the backbeat emphasis?</label>
+    <input type="text" autocomplete="off">
+    <button type="button" class="reveal-one">Reveal model answer</button>
+    <div class="model-answer" hidden>Beats 2 and 4.</div>
+  </div>
+  <div class="listen-q">
+    <label>5. How does the rhythm contribute to the groove?</label>
+    <input type="text" autocomplete="off">
+    <button type="button" class="reveal-one">Reveal model answer</button>
+    <div class="model-answer" hidden>The syncopated riff and backbeat create a strong, driving groove.</div>
+  </div>
+
+  <div class="listen-q">
+    <label>6. GCSE-style question: Identify one rhythmic feature in <em>Superstition</em> and explain its effect on the music. [3]</label>
+    <input type="text" autocomplete="off">
+    <button type="button" class="reveal-one">Reveal model answer</button>
+    <div class="model-answer" hidden>Example: The clavinet riff is syncopated. This emphasises off-beats and helps create the driving, funky groove.</div>
+  </div>
+
+  <div class="listen-actions">
+    <button type="button" id="revealAll">Reveal all model answers</button>
+    <button type="button" id="clearListening">Clear listening answers</button>
+  </div>
+  <p class="student-note">Type your answer before revealing the model answer. Equivalent well-supported wording may be accepted for questions about musical effect.</p>
+</div>
+</main>
+<footer>Vocabulary is restricted to the selected Rhythm & Metre material used in class. Scotch snap, Chaal rhythm, Hemiola and Swing rhythm are excluded.</footer>
+
+<script>
+const NAME="R – Rhythm & Metre";
+const CFG={"colour": "#ef6c00", "terms": [["Pulse / beat", "the steady underlying beat"], ["Syncopation", "emphasis away from the strong beats"], ["Ostinato", "a repeated rhythmic or melodic pattern"], ["Triplet", "three notes in the time normally occupied by two"], ["Dotted rhythm", "a long-short rhythm created using a dotted note"], ["Cross-rhythm", "two contrasting rhythmic groupings heard together"], ["Polyrhythm", "two or more independent rhythms heard together"], ["Backbeat", "emphasis on beats 2 and 4"]], "listening": {"extract": "Stevie Wonder – Superstition (opening groove)", "cue": "Listen for the syncopated clavinet riff, steady beat and backbeat feel.", "questions": [["Where is the steady pulse?", "A steady underlying beat is maintained throughout the groove."], ["Which part sounds syncopated?", "The clavinet riff."], ["What is the repeated rhythmic idea called in this extract?", "Riff."], ["Which beats receive the backbeat emphasis?", "Beats 2 and 4."], ["How does the rhythm contribute to the groove?", "The syncopated riff and backbeat create a strong, driving groove."], ["GCSE-style question: Identify one rhythmic feature in Superstition and explain its effect on the music. [3]", "Example: The clavinet riff is syncopated. This emphasises off-beats and helps create the driving, funky groove."]]}};
+const APPLICATIONS=[["A steady underlying beat continues while other rhythms change. Write the key term.", ["pulse", "beat", "pulse beat"], "Pulse / beat"], ["Accents fall away from the strong beats. Write the key term.", ["syncopation", "syncopated"], "Syncopation"], ["A short rhythmic or melodic pattern is repeated again and again. Write the key term.", ["ostinato"], "Ostinato"], ["Three notes are performed in the time normally occupied by two. Write the key term.", ["triplet", "triplets"], "Triplet"], ["A long-short rhythm is created using a dotted note. Write the key term.", ["dotted rhythm", "dotted"], "Dotted rhythm"], ["Two contrasting rhythmic groupings are heard together. Write the key term.", ["cross rhythm", "cross-rhythm", "crossrhythm"], "Cross-rhythm"], ["Two or more independent rhythms are heard together. Write the key term.", ["polyrhythm", "poly rhythm", "poly-rhythm"], "Polyrhythm"], ["The music strongly emphasises beats 2 and 4. Write the key term.", ["backbeat", "back beat", "syncopation", "syncopated"], "Backbeat / syncopation"]];
+const SYMBOLS=[];
+const ALIASES={"Pulse / beat": ["pulse", "beat", "pulse beat"], "Syncopation": ["syncopation", "syncopated"], "Ostinato": ["ostinato"], "Triplet": ["triplet", "triplets"], "Dotted rhythm": ["dotted rhythm", "dotted"], "Cross-rhythm": ["cross rhythm", "cross-rhythm", "crossrhythm"], "Polyrhythm": ["polyrhythm", "poly rhythm", "poly-rhythm"], "Backbeat": ["backbeat", "back beat"]};
+
+function clean(s){
+ return String(s||'').toLowerCase().trim()
+   .replace(/♯/g,' sharp ').replace(/♭/g,' flat ')
+   .replace(/&/g,' and ')
+   .replace(/[–—-]/g,' ')
+   .replace(/[().,/;:'"]/g,' ')
+   .replace(/\bpopular\b/g,' ')
+   .replace(/\bpop\b/g,' ')
+   .replace(/\bmusic\b/g,' ')
+   .replace(/\s+/g,' ').trim();
+}
+function relaxed(s){
+ let x=clean(s);
+ x=x.replace(/\b(form|term|marking|mark|symbol|pattern)\b/g,' ');
+ return x.replace(/\s+/g,' ').trim();
+}
+function levenshtein(a,b){
+ a=relaxed(a); b=relaxed(b);
+ const m=a.length,n=b.length;if(!m)return n;if(!n)return m;
+ const dp=Array.from({length:m+1},()=>Array(n+1).fill(0));
+ for(let i=0;i<=m;i++)dp[i][0]=i;
+ for(let j=0;j<=n;j++)dp[0][j]=j;
+ for(let i=1;i<=m;i++)for(let j=1;j<=n;j++){
+   const cost=a[i-1]===b[j-1]?0:1;
+   dp[i][j]=Math.min(dp[i-1][j]+1,dp[i][j-1]+1,dp[i-1][j-1]+cost);
+ }
+ return dp[m][n];
+}
+function aliasesFor(term){
+ const a=ALIASES[term]||[], base=[term,...a];
+ base.push(term.replace(/\([^)]*\)/g,'').trim());
+ term.split('/').forEach(x=>base.push(x.trim()));
+ return [...new Set(base.map(clean).filter(Boolean))];
+}
+function isAccepted(given, accepted){
+ const g=relaxed(given); if(!g)return false;
+
+ const weak=new Set(['time','rhythm','metre','meter','note','notes','beat','beats','value','values','signature','form','term','pattern','music']);
+
+ for(const raw of accepted){
+   const a=relaxed(raw); if(!a)continue;
+
+   if(g===a)return true;
+
+   // Correct term anywhere inside a longer response.
+   if(a.length>=4 || a.includes(' ')){
+     if((' '+g+' ').includes(' '+a+' '))return true;
+   }
+
+   // Distinctive shortened answer, e.g. "irregular" for "irregular time signature".
+   if(g.length>=5 && !weak.has(g) && (' '+a+' ').includes(' '+g+' '))return true;
+
+   // Allow extra/reordered wording when the meaningful words are there.
+   if(g.length>=4 && a.length>=4){
+     const gw=g.split(' ');
+     const aw=a.split(' ');
+     if(aw.every(w=>w.length<4||weak.has(w)||gw.includes(w)))return true;
+   }
+
+   // Small spelling mistakes.
+   const maxLen=Math.max(g.length,a.length);
+   const tol=maxLen>=9?2:(maxLen>=5?1:0);
+   if(tol>0 && levenshtein(g,a)<=tol)return true;
+ }
+ return false;
+}
+function shuffle(a){
+ const x=[...a];for(let i=x.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[x[i],x[j]]=[x[j],x[i]]}return x;
+}
+
+const area=document.getElementById('quizArea'),scoreEl=document.getElementById('score'),attEl=document.getElementById('attempted'),retry=document.getElementById('retry');
+let qs=[],pos=0,score=0,wrong=[],breakdown={Recall:[0,0],Application:[0,0],Symbols:[0,0]},responses=[];
+
+function reverseQuestion(item){
+ return {kind:'Recall',type:'typed',prompt:`Write the key word or term for this definition: “${item[1]}”`,accepted:aliasesFor(item[0]),model:item[0]};
+}
+function directMCQ(item){
+ const others=shuffle(CFG.terms.filter(x=>x[0]!==item[0])).slice(0,3);
+ return {kind:'Recall',type:'mcq',prompt:`Which definition best matches “${item[0]}”?`,model:item[1],choices:shuffle([item[1],...others.map(x=>x[1])])};
+}
+function applicationQuestion(a){return {kind:'Application',type:'typed',prompt:a[0],accepted:a[1].map(clean),model:a[2]}}
+function symbolQuestion(s){return {kind:'Symbols',type:'symbol',visual:s[0],prompt:'Identify the correct musical term.',accepted:s[1].map(clean),model:s[2]}}
+
+function answerMatchesTerm(answer, term){
+ const ans=relaxed(answer);
+ const candidates=aliasesFor(term[0]).map(relaxed);
+ return candidates.some(c=>{
+   if(!c || !ans)return false;
+   if(ans===c)return true;
+   if(c.length>=4 && (' '+ans+' ').includes(' '+c+' '))return true;
+   if(ans.length>=4 && (' '+c+' ').includes(' '+ans+' '))return true;
+   return false;
+ });
+}
+function conceptsForAnswers(answers){
+ const found=new Set();
+ for(const term of CFG.terms){
+   if(answers.some(a=>answerMatchesTerm(a,term))) found.add(term[0]);
+ }
+ return found;
+}
+function conceptsForQuestion(q){
+ if(q.concepts)return new Set(q.concepts);
+ return new Set();
+}
+function overlapsUsed(concepts,used){
+ for(const c of concepts) if(used.has(c)) return true;
+ return false;
+}
+function addQuestionUnique(list,q,used){
+ const concepts=conceptsForQuestion(q);
+ if(overlapsUsed(concepts,used)) return false;
+ list.push(q);
+ concepts.forEach(c=>used.add(c));
+ return true;
+}
+function reverseQuestionUnique(item){
+ const q=reverseQuestion(item);
+ q.concepts=[item[0]];
+ return q;
+}
+function directMCQUnique(item){
+ const q=directMCQ(item);
+ q.concepts=[item[0]];
+ return q;
+}
+function applicationQuestionUnique(a){
+ const q=applicationQuestion(a);
+ q.concepts=[...conceptsForAnswers(a[1])];
+ if(!q.concepts.length)q.concepts=[a[2]];
+ return q;
+}
+function symbolQuestionUnique(s){
+ const q=symbolQuestion(s);
+ q.concepts=[...conceptsForAnswers(s[1])];
+ if(!q.concepts.length)q.concepts=[s[2]];
+ return q;
+}
+const CHALLENGE_QUESTIONS=[{"kind": "Recall", "type": "typed", "prompt": "Write the key term for the steady underlying beat.", "accepted": ["pulse", "beat", "pulse beat"], "model": "Pulse / beat"}, {"kind": "Application", "type": "typed", "prompt": "Accents fall away from the strong beats. Write the key term.", "accepted": ["syncopation", "syncopated"], "model": "Syncopation"}, {"kind": "Recall", "type": "typed", "prompt": "Write the key term for a repeated rhythmic or melodic pattern.", "accepted": ["ostinato", "riff", "repeated riff"], "model": "Ostinato / riff"}, {"kind": "Recall", "type": "typed", "prompt": "Three notes are played in the time normally occupied by two. Write the key term.", "accepted": ["triplet", "triplets"], "model": "Triplet"}, {"kind": "Application", "type": "typed", "prompt": "A long-short rhythm is created using a dotted note. Write the key term.", "accepted": ["dotted rhythm", "dotted"], "model": "Dotted rhythm"}, {"kind": "Application", "type": "typed", "prompt": "Two contrasting rhythmic groupings are heard together. Write the key term.", "accepted": ["cross rhythm", "cross-rhythm", "crossrhythm"], "model": "Cross-rhythm"}, {"kind": "Application", "type": "typed", "prompt": "Two or more independent rhythms are heard together. Write the key term.", "accepted": ["polyrhythm", "poly rhythm", "poly-rhythm"], "model": "Polyrhythm"}, {"kind": "Application", "type": "typed", "prompt": "The music strongly emphasises beats 2 and 4. Write the key term.", "accepted": ["backbeat", "back beat", "syncopation", "syncopated"], "model": "Backbeat / syncopation"}, {"kind": "Symbols", "type": "symbol", "visual": "<svg class='note-svg' viewBox='0 0 90 110' aria-label='semibreve'><ellipse cx='45' cy='62' rx='21' ry='14' fill='none' stroke='currentColor' stroke-width='6'/></svg>", "prompt": "How many crotchet beats is this note worth?", "accepted": ["4", "four", "4 beats", "four beats"], "model": "4 beats"}, {"kind": "Symbols", "type": "symbol", "visual": "<svg class='note-svg' viewBox='0 0 90 110' aria-label='minim'><ellipse cx='38' cy='74' rx='18' ry='12' fill='none' stroke='currentColor' stroke-width='5'/><line x1='54' y1='72' x2='54' y2='18' stroke='currentColor' stroke-width='5'/></svg>", "prompt": "Name this note value.", "accepted": ["minim", "half note"], "model": "Minim"}, {"kind": "Symbols", "type": "symbol", "visual": "<svg class='note-svg' viewBox='0 0 90 110' aria-label='crotchet'><ellipse cx='38' cy='74' rx='18' ry='12' fill='currentColor'/><line x1='54' y1='72' x2='54' y2='18' stroke='currentColor' stroke-width='5'/></svg>", "prompt": "How many beats is this note worth?", "accepted": ["1", "one", "1 beat", "one beat"], "model": "1 beat"}, {"kind": "Symbols", "type": "symbol", "visual": "<svg class='note-svg' viewBox='0 0 100 110' aria-label='quaver'><ellipse cx='38' cy='76' rx='18' ry='12' fill='currentColor'/><line x1='54' y1='74' x2='54' y2='17' stroke='currentColor' stroke-width='5'/><path d='M54 18 Q82 26 70 50' fill='none' stroke='currentColor' stroke-width='6'/></svg>", "prompt": "Name this note value.", "accepted": ["quaver", "eighth note"], "model": "Quaver"}, {"kind": "Symbols", "type": "symbol", "visual": "<svg class='note-svg' viewBox='0 0 100 110' aria-label='semiquaver'><ellipse cx='38' cy='78' rx='18' ry='12' fill='currentColor'/><line x1='54' y1='76' x2='54' y2='14' stroke='currentColor' stroke-width='5'/><path d='M54 17 Q84 24 70 45 M54 31 Q82 38 69 58' fill='none' stroke='currentColor' stroke-width='6'/></svg>", "prompt": "How many beats is this note worth?", "accepted": ["1/4", "¼", "quarter", "a quarter", "quarter beat", "one quarter", "0.25"], "model": "¼ beat"}, {"kind": "Application", "type": "typed", "prompt": "A phrase returns with its note values made longer. Write the key term.", "accepted": ["augmentation"], "model": "Augmentation"}, {"kind": "Application", "type": "typed", "prompt": "A phrase returns with its note values made shorter. Write the key term.", "accepted": ["diminution"], "model": "Diminution"}, {"kind": "Application", "type": "typed", "prompt": "Each beat divides naturally into two equal parts. Write the metre term.", "accepted": ["simple time", "simple"], "model": "Simple time"}, {"kind": "Application", "type": "typed", "prompt": "Each beat divides naturally into three equal parts. Write the metre term.", "accepted": ["compound time", "compound"], "model": "Compound time"}, {"kind": "Symbols", "type": "symbol", "visual": "<span class='timesig'><span>5</span><span>4</span></span>", "prompt": "What type of time signature is this?", "accepted": ["irregular", "irregular time", "irregular time signature", "irregular metre", "irregular meter"], "model": "Irregular time signature"}, {"kind": "Symbols", "type": "symbol", "visual": "<div class='bigmark' aria-label='crotchet rest'>𝄽</div>", "prompt": "How many beats is this rest worth?", "accepted": ["1", "one", "1 beat", "one beat"], "model": "1 beat"}, {"kind": "Symbols", "type": "symbol", "visual": "<svg class='sym-svg' viewBox='0 0 240 120' aria-label='minim rest on a five-line stave'>\n  <g stroke='currentColor' stroke-width='2'>\n    <line x1='20' y1='25' x2='220' y2='25'/>\n    <line x1='20' y1='42' x2='220' y2='42'/>\n    <line x1='20' y1='59' x2='220' y2='59'/>\n    <line x1='20' y1='76' x2='220' y2='76'/>\n    <line x1='20' y1='93' x2='220' y2='93'/>\n  </g>\n  <rect x='104' y='47' width='32' height='12' fill='currentColor'/>\n</svg>", "prompt": "How many crotchet beats is this minim rest worth?", "accepted": ["2", "two", "2 beats", "two beats"], "model": "2 beats"}];
+
+function buildChallenge(){
+ return shuffle(CHALLENGE_QUESTIONS);
+}
+function start(mode,sourceWrong=null){
+  qs=sourceWrong?shuffle(sourceWrong):(mode==='reverse'?shuffle(CFG.terms).map(reverseQuestion):mode==='symbols'?shuffle(SYMBOLS).map(symbolQuestion):buildChallenge());
+  pos=0;score=0;wrong=[];responses=Array(qs.length).fill(null);breakdown={Recall:[0,0],Application:[0,0],Symbols:[0,0]};
+  retry.disabled=true;scoreEl.textContent='0';attEl.textContent='0';render();
+}
+
+function escapeHtml(s){
+  return String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));
+}
+
+function markAll(){
+  score=0;wrong=[];breakdown={Recall:[0,0],Application:[0,0],Symbols:[0,0]};
+  qs.forEach((q,i)=>{
+    const answer=responses[i]??'';
+    const ok=q.type==='mcq' ? answer===q.model : isAccepted(answer,q.accepted);
+    breakdown[q.kind][1]++;
+    if(ok){breakdown[q.kind][0]++;score++}
+    else wrong.push({...q,studentAnswer:answer});
+  });
+  scoreEl.textContent=score;
+  attEl.textContent=qs.length;
+  retry.disabled=wrong.length===0;
+}
+
+function showResults(){
+  markAll();
+  const bits=Object.entries(breakdown).filter(x=>x[1][1]).map(([k,v])=>`<span>${k}: ${v[0]}/${v[1]}</span>`).join('');
+  const review=wrong.length
+    ? `<div style="margin-top:18px"><h3>Incorrect question summary</h3>${wrong.map(q=>`
+        <div style="border:1px solid #eccaca;border-left:5px solid var(--c);background:#fffafa;border-radius:9px;padding:11px 13px;margin:9px 0">
+          <div style="font-weight:800;margin-bottom:5px">${escapeHtml(q.prompt)}</div>
+          <div><strong>Your answer:</strong> ${escapeHtml(q.studentAnswer||'No answer')}</div>
+          <div><strong>Correct answer:</strong> ${escapeHtml(q.model)}</div>
+        </div>`).join('')}</div>`
+    : `<div style="margin-top:16px;background:#edf8ef;border:1px solid #bcdabd;border-radius:9px;padding:12px"><strong>Full marks.</strong> No incorrect questions to review.</div>`;
+
+  area.innerHTML=`<div class="result"><h4>${score} / ${qs.length}</h4><p>${score===qs.length?'Excellent — full marks.':score>=Math.ceil(qs.length*.8)?'Strong recall. Review the missed items below.':'Review the incorrect items below, then try again.'}</p><div class="breakdown">${bits}</div>${review}</div>`;
+}
+
+function render(){
+  if(pos>=qs.length){showResults();return}
+
+  const q=qs[pos], symbol=q.visual?`<div class="symbol-stage">${q.visual}</div>`:'';
+  area.innerHTML=`<div class="progress">Question ${pos+1} of ${qs.length}</div><div class="kind">${q.kind}</div>${symbol}<div class="qtext">${q.prompt}</div><div class="answer-zone"></div><div class="feedback" hidden></div><div class="action-row"></div>`;
+
+  const zone=area.querySelector('.answer-zone'),fb=area.querySelector('.feedback'),actions=area.querySelector('.action-row');
+
+  function goNext(){
+    if(q.type==='mcq'){
+      if(!responses[pos]){
+        fb.className='feedback bad';fb.textContent='Choose an answer first.';fb.hidden=false;return;
+      }
+    }else{
+      const input=zone.querySelector('input');
+      if(!input || !clean(input.value)){
+        fb.className='feedback bad';fb.textContent='Type an answer first.';fb.hidden=false;return;
+      }
+      responses[pos]=input.value;
+    }
+    pos++;
+    render();
+  }
+
+  if(q.type==='mcq'){
+    const grid=document.createElement('div');grid.className='mcq';
+    q.choices.forEach(choice=>{
+      const b=document.createElement('button');b.type='button';b.textContent=choice;
+      if(responses[pos]===choice)b.classList.add('selected');
+      b.addEventListener('click',()=>{
+        responses[pos]=choice;
+        [...grid.children].forEach(x=>x.classList.remove('selected'));
+        b.classList.add('selected');
+        fb.hidden=true;
+      });
+      grid.appendChild(b);
+    });
+    zone.appendChild(grid);
+  }else{
+    const input=document.createElement('input');input.className='answer-input';input.type='text';input.placeholder='Type the musical term…';
+    input.value=responses[pos]||'';
+    input.addEventListener('keydown',e=>{if(e.key==='Enter')goNext()});
+    zone.appendChild(input);
+    setTimeout(()=>input.focus(),0);
+  }
+
+  const n=document.createElement('button');
+  n.type='button';n.className='next-btn';
+  n.textContent=pos===qs.length-1?'Finish quiz':'Next question';
+  n.addEventListener('click',goNext);
+  actions.appendChild(n);
+}
+
+document.getElementById('challenge').addEventListener('click',()=>start('challenge'));
+document.getElementById('reverse').addEventListener('click',()=>start('reverse'));
+retry.addEventListener('click',()=>{if(wrong.length)start('retry',wrong.map(q=>{const c={...q};delete c.studentAnswer;return c;}))});
+
+document.querySelectorAll('.reveal-one').forEach(b=>b.addEventListener('click',()=>{
+ const a=b.nextElementSibling;a.hidden=!a.hidden;b.textContent=a.hidden?'Reveal model answer':'Hide model answer';
+}));
+document.getElementById('revealAll').addEventListener('click',()=>{
+ document.querySelectorAll('.model-answer').forEach(a=>a.hidden=false);
+ document.querySelectorAll('.reveal-one').forEach(b=>b.textContent='Hide model answer');
+});
+document.getElementById('clearListening').addEventListener('click',()=>{
+ document.querySelectorAll('.listen-q input').forEach(i=>i.value='');
+ document.querySelectorAll('.model-answer').forEach(a=>a.hidden=true);
+ document.querySelectorAll('.reveal-one').forEach(b=>b.textContent='Reveal model answer');
+});
+</script>
+</body>
+</html>
